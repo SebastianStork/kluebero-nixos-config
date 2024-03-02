@@ -18,5 +18,10 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  environment.systemPackages = with pkgs; [
+    neovim
+    git
+  ];
+
   system.stateVersion = "23.11";
 }
