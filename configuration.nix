@@ -46,6 +46,10 @@
     timeout = 3;
   };
 
+  services.openssh = {
+    enable = true;
+  };
+
   console.keyMap = "de-latin1-nodeadkeys";
   time.timeZone = "Europe/Berlin";
   i18n.defaultLocale = "en_US.UTF-8";
