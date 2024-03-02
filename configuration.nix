@@ -6,9 +6,14 @@
 }: {
   imports = [
     ./hardware-configuration.nix
-    "${builtins.fetchTarball "https://github.com/nix-community/disko/archive/master.tar.gz"}/module.nix"
     ./disko.nix
   ];
+
+  networking.hostName = "kluebero-vm1";
+
+  nix.settings = {
+    experimental-features = ["nix-command" "flakes"];
+  };
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
