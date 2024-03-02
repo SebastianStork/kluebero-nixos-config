@@ -25,6 +25,7 @@
         description = "Sebastian Stork";
         hashedPassword = "$y$j9T$KeXG5O0SVTpB9JDKKu1hU/$zub/9gM6LGkCWb4Tjt8gFFWpmbNlNEhEOVpmDUWjgk0";
         extraGroups = ["wheel"];
+        openssh.authorizedKeys.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE69lHVlHYqco1KIcLvoceilJlDZOp9hfBlSBOnvPuRO seb"];
       };
       julius = {
         isNormalUser = true;
