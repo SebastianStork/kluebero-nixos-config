@@ -49,6 +49,11 @@
 
   services.openssh = {
     enable = true;
+
+    settings = {
+      PasswordAuthentication = false;
+      KbdInteractiveAuthentication = false;
+    };
   };
 
   console.keyMap = "de-latin1-nodeadkeys";
