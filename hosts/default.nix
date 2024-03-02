@@ -53,9 +53,9 @@
     LC_TIME = "de_DE.UTF-8";
   };
 
-  environment.systemPackages = with pkgs; [
-    neovim
-    git
+  environment.systemPackages = [
+    pkgs.neovim
+    pkgs.git
   ];
 
   system.stateVersion = "23.11";
