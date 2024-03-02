@@ -15,8 +15,16 @@
     experimental-features = ["nix-command" "flakes"];
   };
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.tmp.cleanOnBoot = true;
+  boot.loader = {
+    systemd-boot = {
+      enable = true;
+      editor = false;
+      configurationLimit = 50;
+    };
+    efi.canTouchEfiVariables = true;
+    timeout = 3;
+  };
 
   environment.systemPackages = with pkgs; [
     neovim
