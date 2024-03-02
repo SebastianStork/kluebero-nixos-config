@@ -13,6 +13,26 @@
 
   nix.settings = {
     experimental-features = ["nix-command" "flakes"];
+    trusted-users = ["root" "@wheel"];
+  };
+
+  users = {
+    mutableUsers = false;
+
+    users = {
+      seb = {
+        isNormalUser = true;
+        description = "Sebastian Stork";
+        hashedPassword = "$y$j9T$KeXG5O0SVTpB9JDKKu1hU/$zub/9gM6LGkCWb4Tjt8gFFWpmbNlNEhEOVpmDUWjgk0";
+        extraGroups = ["wheel"];
+      };
+      julius = {
+        isNormalUser = true;
+        description = "Julius Steude";
+        hashedPassword = "$y$j9T$dR5hskt1tyqedNpf4c5Yf1$2fMXtSsSutCD2hEJbi9/1PvQ2c7aG2UBN1zwEJZ4mjA";
+        extraGroups = ["wheel"];
+      };
+    };
   };
 
   boot.tmp.cleanOnBoot = true;
