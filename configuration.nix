@@ -20,6 +20,7 @@
     mutableUsers = false;
 
     users = {
+      root.openssh.authorizedKeys.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHubTY+B7iIs6cWlAKFcilbsl6eRkWgugo6KWxRYcP8h root"];
       seb = {
         isNormalUser = true;
         description = "Sebastian Stork";
