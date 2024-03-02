@@ -1,16 +1,6 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: {
-  imports = [
-    ./hardware-configuration.nix
-    ./disko.nix
-  ];
-
-  networking.hostName = "kluebero-vm1";
-
+{pkgs, ...}: {
+  imports = [../modules];
+  
   nix.settings = {
     experimental-features = ["nix-command" "flakes"];
     auto-optimise-store = true;
@@ -21,14 +11,13 @@
     mutableUsers = false;
 
     users = {
-      root.openssh.authorizedKeys.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHubTY+B7iIs6cWlAKFcilbsl6eRkWgugo6KWxRYcP8h root"];
       seb = {
         isNormalUser = true;
         description = "Sebastian Stork";
         hashedPassword = "$y$j9T$KeXG5O0SVTpB9JDKKu1hU/$zub/9gM6LGkCWb4Tjt8gFFWpmbNlNEhEOVpmDUWjgk0";
         extraGroups = ["wheel"];
-        openssh.authorizedKeys.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE69lHVlHYqco1KIcLvoceilJlDZOp9hfBlSBOnvPuRO seb"];
       };
+
       julius = {
         isNormalUser = true;
         description = "Julius Steude";
@@ -47,15 +36,6 @@
     };
     efi.canTouchEfiVariables = true;
     timeout = 3;
-  };
-
-  services.openssh = {
-    enable = true;
-
-    settings = {
-      PasswordAuthentication = false;
-      KbdInteractiveAuthentication = false;
-    };
   };
 
   console.keyMap = "de-latin1-nodeadkeys";

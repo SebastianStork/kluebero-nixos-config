@@ -10,20 +10,12 @@
     };
   };
 
-  outputs = {
-    nixpkgs,
-    disko,
-    ...
-  }: {
+  outputs = {nixpkgs, ...} @ inputs: {
     nixosConfigurations = {
       kluebero-vm1 = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-
-        modules = [
-          ./configuration.nix
-
-          disko.nixosModules.default
-        ];
+        specialArgs = {inherit inputs;};
+        modules = [./hosts/vm1];
       };
     };
   };

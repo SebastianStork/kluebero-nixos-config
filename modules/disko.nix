@@ -1,8 +1,8 @@
-{
+{device ? throw "Set this to your disk device, e.g. /dev/sda", ...}: {
   disko.devices = {
     disk = {
       vdb = {
-        device = "/dev/sda";
+        inherit device;
         type = "disk";
         content = {
           type = "gpt";
@@ -30,4 +30,3 @@
     };
   };
 }
-
