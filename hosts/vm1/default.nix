@@ -10,6 +10,10 @@
   networking.hostName = "kluebero-vm1";
 
   myConfig = {
-    ssh.enable = true;
+    ssh = {
+      enable = true;
+      remoteDeployment.enable = true;
+      users = ["seb"];
+    };
   };
 }
