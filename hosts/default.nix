@@ -24,6 +24,13 @@
         hashedPassword = "$y$j9T$dR5hskt1tyqedNpf4c5Yf1$2fMXtSsSutCD2hEJbi9/1PvQ2c7aG2UBN1zwEJZ4mjA";
         extraGroups = ["wheel"];
       };
+
+      paul = {
+        isNormalUser = true;
+        description = "Paul Kiffer";
+        hashedPassword = "$y$j9T$37Ru2.77aVpzKxtN5TuSL.$qA4sr4qgszA34yzxTMHB6pNfDpiNhH0SAKo1aPWo.A6";
+        extraGroups = ["wheel"];
+      };
     };
   };
 
@@ -56,6 +63,7 @@
   environment.systemPackages = [
     pkgs.neovim
     pkgs.git
+    pkgs.cowsay
   ];
 
   system.stateVersion = "23.11";
