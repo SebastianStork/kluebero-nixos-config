@@ -12,8 +12,8 @@
   myConfig = {
     ssh = {
       enable = true;
+      users = ["seb" "julius" "paul"];
       remoteDeployment.enable = true;
-      users = ["seb"];
     };
   };
 }

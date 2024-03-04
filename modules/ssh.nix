@@ -30,6 +30,8 @@ in {
 
     users.users = {
       seb.openssh.authorizedKeys.keys = lib.mkIf (builtins.elem "seb" cfg.users) ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE69lHVlHYqco1KIcLvoceilJlDZOp9hfBlSBOnvPuRO seb"];
+      julius.openssh.authorizedKeys.keys = lib.mkIf (builtins.elem "julius" cfg.users) ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILHkOQQHkoYY/NYv4pf44rXjjDW6ISd8C232mE8criuc julius"];
+      paul.openssh.authorizedKeys.keys = lib.mkIf (builtins.elem "paul" cfg.users) ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID5TW4AO+I2qbwZFO4lfr6QQiKP+HBe2SAzYDccv8hgr paul"];
     };
 
     # Allow members of wheel to deploy remotely
