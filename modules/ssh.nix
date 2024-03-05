@@ -36,46 +36,23 @@ in {
 
     # Allow members of wheel to deploy remotely
     security.sudo.extraRules = let
+      commandPrefix = "/run/current-system/sw/bin";
       storePrefix = "/nix/store/*";
       systemName = "nixos-system-${config.networking.hostName}-*";
     in
-      lib.mkIf cfg.remoteDeployment.enable [
-        {
-          groups = ["wheel"];
-          commands = [
-            {
-              command = "/run/current-system/sw/bin/nix-store --serve --write";
-              options = ["NOPASSWD"];
-            }
-          ];
-        }
-        {
-          groups = ["wheel"];
-          commands = [
-            {
-              command = "/run/current-system/sw/bin/nix-env -p /nix/var/nix/profiles/system --set ${storePrefix}-${systemName}";
-              options = ["NOPASSWD"];
-            }
-          ];
-        }
-        {
-          groups = ["wheel"];
-          commands = [
-            {
-              command = "/run/current-system/sw/bin/systemd-run -E LOCALE_ARCHIVE -E NIXOS_INSTALL_BOOTLOADER --collect --no-ask-password --pty --quiet --same-dir --service-type=exec --unit=nixos-rebuild-switch-to-configuration --wait true";
-              options = ["NOPASSWD"];
-            }
-          ];
-        }
-        {
-          groups = ["wheel"];
-          commands = [
-            {
-              command = "/run/current-system/sw/bin/systemd-run -E LOCALE_ARCHIVE -E NIXOS_INSTALL_BOOTLOADER --collect --no-ask-password --pty --quiet --same-dir --service-type=exec --unit=nixos-rebuild-switch-to-configuration --wait ${storePrefix}-${systemName}/bin/switch-to-configuration switch";
-              options = ["NOPASSWD"];
-            }
-          ];
-        }
-      ];
+      lib.lists.forEach [
+        "${commandPrefix}/nix-store --serve --write"
+        "${commandPrefix}/nix-env -p /nix/var/nix/profiles/system --set ${storePrefix}-${systemName}"
+        "${commandPrefix}/systemd-run -E LOCALE_ARCHIVE -E NIXOS_INSTALL_BOOTLOADER --collect --no-ask-password --pty --quiet --same-dir --service-type=exec --unit=nixos-rebuild-switch-to-configuration --wait true"
+        "${commandPrefix}/systemd-run -E LOCALE_ARCHIVE -E NIXOS_INSTALL_BOOTLOADER --collect --no-ask-password --pty --quiet --same-dir --service-type=exec --unit=nixos-rebuild-switch-to-configuration --wait ${storePrefix}-${systemName}/bin/switch-to-configuration switch"
+      ] (command: {
+        groups = ["wheel"];
+        commands = [
+          {
+            inherit command;
+            options = ["NOPASSWD"];
+          }
+        ];
+      });
   };
 }
