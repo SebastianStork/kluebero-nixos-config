@@ -4,7 +4,7 @@
     ../.
 
     inputs.disko.nixosModules.default
-    (import ../../modules/disko.nix {device = "/dev/sda";})
+    (import ../disko.nix {device = "/dev/sda";})
   ];
 
   networking.hostName = "kluebero-vm1";
