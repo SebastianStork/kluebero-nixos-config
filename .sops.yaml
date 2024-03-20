@@ -1,0 +1,9 @@
+keys:
+  - &kluebero-vm1 age19ur2qkzn7g3kn35yfp23p0jvkvxfzq3tlhkej95hu6vs9ewkusrswsnyp5
+  - &sebs-laptop age1jl9s4vp78wuwymjxaje6fg4ax0gg5aq8pn8khfmtn5rvap0d83tqfr05dv
+creation_rules:
+  - path_regex: hosts/klue-server1/secrets.yaml$
+    key_groups:
+    - age:
+      - *kluebero-vm1
+      - *sebs-laptop
