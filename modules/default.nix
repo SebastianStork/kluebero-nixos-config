@@ -1,8 +1,8 @@
 {...}: {
-  imports = [
-    ./ssh.nix
-    ./sops.nix
-    ./nextcloud.nix
-    ./matrix.nix
-  ];
+    imports = [
+        ./ssh.nix
+        ./sops.nix
+        ./nextcloud.nix
+        ./matrix.nix
+    ];
 }

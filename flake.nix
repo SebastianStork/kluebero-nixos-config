@@ -1,34 +1,34 @@
 {
-  description = "The NixOS configuration for the Kluebero GmbH";
+    description = "The NixOS configuration for the Kluebero GmbH";
 
-  inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
+    inputs = {
+        nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
 
-    disko = {
-      url = "github:nix-community/disko";
-      inputs.nixpkgs.follows = "nixpkgs";
+        disko = {
+            url = "github:nix-community/disko";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+
+        sops-nix = {
+            url = "github:Mic92/sops-nix";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
     };
 
-    sops-nix = {
-      url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-  };
-
-  outputs = {nixpkgs, ...} @ inputs: let
-    system = "x86_64-linux";
-    pkgs = nixpkgs.legacyPackages.${system};
-  in {
-    nixosConfigurations = {
-      klue-server1 = nixpkgs.lib.nixosSystem {
+    outputs = {nixpkgs, ...} @ inputs: let
         system = "x86_64-linux";
-        specialArgs = {inherit inputs;};
-        modules = [./hosts/klue-server1];
-      };
-    };
+        pkgs = nixpkgs.legacyPackages.${system};
+    in {
+        nixosConfigurations = {
+            klue-server1 = nixpkgs.lib.nixosSystem {
+                system = "x86_64-linux";
+                specialArgs = {inherit inputs;};
+                modules = [./hosts/klue-server1];
+            };
+        };
 
-    devShells.${system}.default = pkgs.mkShell {
-      packages = [pkgs.sops];
+        devShells.${system}.default = pkgs.mkShell {
+            packages = [pkgs.sops];
+        };
     };
-  };
 }
