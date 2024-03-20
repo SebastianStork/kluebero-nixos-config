@@ -8,6 +8,7 @@
   ];
 
   networking.hostName = "kluebero-vm1";
+  networking.domain = "kluebero.lgs-hanau.de";
 
   myConfig = {
     ssh = {
