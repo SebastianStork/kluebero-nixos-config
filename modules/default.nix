@@ -3,5 +3,6 @@
     ./ssh.nix
     ./sops.nix
     ./nextcloud.nix
+    ./matrix.nix
   ];
 }

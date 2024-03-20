@@ -18,5 +18,6 @@
     };
     sops.enable = true;
     nextcloud.enable = true;
+    matrix.enable = false;
   };
 }
