@@ -7,7 +7,7 @@
     (import ../disko.nix {device = "/dev/sda";})
   ];
 
-  networking.hostName = "kluebero-vm1";
+  networking.hostName = "klue-server1";
   networking.domain = "kluebero.lgs-hanau.de";
 
   myConfig = {
