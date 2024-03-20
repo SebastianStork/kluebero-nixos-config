@@ -1,10 +1,22 @@
-{pkgs, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   imports = [../modules];
-  
+
   nix.settings = {
     experimental-features = ["nix-command" "flakes"];
     auto-optimise-store = true;
     trusted-users = ["root" "@wheel"];
+  };
+
+  nixpkgs.config.allowUnfree = true;
+
+  sops.secrets = {
+    "password/seb".neededForUsers = true;
+    "password/julius".neededForUsers = true;
+    "password/paul".neededForUsers = true;
   };
 
   users = {
@@ -14,21 +26,21 @@
       seb = {
         isNormalUser = true;
         description = "Sebastian Stork";
-        hashedPassword = "$y$j9T$KeXG5O0SVTpB9JDKKu1hU/$zub/9gM6LGkCWb4Tjt8gFFWpmbNlNEhEOVpmDUWjgk0";
+        hashedPasswordFile = config.sops.secrets."password/seb".path;
         extraGroups = ["wheel"];
       };
 
       julius = {
         isNormalUser = true;
         description = "Julius Steude";
-        hashedPassword = "$y$j9T$dR5hskt1tyqedNpf4c5Yf1$2fMXtSsSutCD2hEJbi9/1PvQ2c7aG2UBN1zwEJZ4mjA";
+        hashedPasswordFile = config.sops.secrets."password/julius".path;
         extraGroups = ["wheel"];
       };
 
       paul = {
         isNormalUser = true;
         description = "Paul Kiffer";
-        hashedPassword = "$y$j9T$37Ru2.77aVpzKxtN5TuSL.$qA4sr4qgszA34yzxTMHB6pNfDpiNhH0SAKo1aPWo.A6";
+        hashedPasswordFile = config.sops.secrets."password/paul".path;
         extraGroups = ["wheel"];
       };
     };
