@@ -20,7 +20,7 @@ in {
   config = lib.mkIf cfg.enable {
     services.openssh = {
       enable = true;
-
+      hostKeys = lib.mkForce [];
       settings = {
         PasswordAuthentication = false;
         KbdInteractiveAuthentication = false;
