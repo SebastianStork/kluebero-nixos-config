@@ -10,13 +10,20 @@
     };
   };
 
-  outputs = {nixpkgs, ...} @ inputs: {
+  outputs = {nixpkgs, ...} @ inputs: let
+    system = "x86_64-linux";
+    pkgs = nixpkgs.legacyPackages.${system};
+  in {
     nixosConfigurations = {
       kluebero-vm1 = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {inherit inputs;};
         modules = [./hosts/vm1];
       };
+    };
+
+    devShells.${system}.default = pkgs.mkShell {
+      packages = [pkgs.sops];
     };
   };
 }
