@@ -58,7 +58,7 @@ in {
             autoUpdateApps.enable = true;
             extraAppsEnable = true;
             extraApps = {
-                inherit (config.services.nextcloud.package.packages.apps) contacts calendar onlyoffice;
+                inherit (config.services.nextcloud.package.packages.apps) contacts calendar groupfolders onlyoffice;
             };
 
             database.createLocally = true;
