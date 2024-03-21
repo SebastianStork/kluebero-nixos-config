@@ -10,7 +10,7 @@ in {
     options.myConfig.nextcloud.enable = lib.mkEnableOption "nextcloud";
 
     config = lib.mkIf config.myConfig.nextcloud.enable {
-        networking.firewall.allowedTCPPorts = [443 80];
+        networking.firewall.allowedTCPPorts = [443];
 
         sops.secrets = {
             ssl-cert = {
