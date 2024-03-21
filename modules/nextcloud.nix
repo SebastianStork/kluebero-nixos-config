@@ -70,5 +70,32 @@ in {
                 adminpassFile = config.sops.secrets.nextcloud-admin-pass.path;
             };
         };
+
+        services.postgresqlBackup = {
+            enable = true;
+            startAt = "Sun *-*-* 03:00:00";
+            databases = ["nextcloud"];
+            compression = "none";
+        };
+
+        services.borgbackup.jobs.nextcloud-backup = {
+            startAt = "Sun *-*-* 03:15:00";
+            encryption.mode = "none";
+
+            user = config.services.nextcloud.config.dbname;
+            group = config.services.nextcloud.config.dbuser;
+
+            paths = [
+                "/var/lib/nextcloud"
+                "/var/backup/postgresql/nextcloud.sql"
+            ];
+            repo = "/var/backup/nextcloud";
+
+            prune.prefix = null;
+            prune.keep = {
+                weekly = 5;
+                monthly = 2;
+            };
+        };
     };
 }

@@ -91,5 +91,32 @@ in {
             };
             extraConfigFiles = [config.sops.secrets.matrix-shared-secret.path];
         };
+
+        services.postgresqlBackup = {
+            enable = true;
+            startAt = "Sun *-*-* 03:00:00";
+            databases = ["matrix-synapse"];
+            compression = "none";
+        };
+
+        services.borgbackup.jobs.matrix-synapse-backup = {
+            startAt = "Sun *-*-* 03:15:00";
+            encryption.mode = "none";
+
+            user = config.systemd.services.matrix-synapse.serviceConfig.User;
+            group = config.systemd.services.matrix-synapse.serviceConfig.Group;
+
+            paths = [
+                "/var/lib/matrix-synapse"
+                "/var/backup/postgresql/matrix-synapse.sql"
+            ];
+            repo = "/var/backup/matrix-synapse";
+
+            prune.prefix = null;
+            prune.keep = {
+                weekly = 5;
+                monthly = 2;
+            };
+        };
     };
 }
